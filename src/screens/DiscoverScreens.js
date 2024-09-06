@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
     fontFamily: "SpaceGroteskMedium",
   },
   darkText: {
-    color: "#fff", // Text color for dark mode
+    color: "#ffff", // Text color for dark mode
   },
   titletext: {
     fontSize: 15,
