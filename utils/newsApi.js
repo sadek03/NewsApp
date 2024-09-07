@@ -3,9 +3,12 @@ import { newsApiKey } from "./Apikey";
 const ApiEndpoint = "https://newsapi.org/v2";
 
 const breakingNewsURL = `${ApiEndpoint}/top-headlines/sources?country=us&apikey=${newsApiKey}`;
+
 const recommendedNewsUrl = `${ApiEndpoint}/top-headlines/sources?country=us&category=business&apikey=${newsApiKey}`;
+
 const discoverNewsUrl = (discover) =>
   `${ApiEndpoint}/top-headlines/sources?country=us&category=${discover}&apikey=${newsApiKey}`;
+
 const searchNewsUrl = (query) =>
   `${ApiEndpoint}/everything?q=${query}&apikey=${newsApiKey}`;
 

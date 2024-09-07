@@ -1,10 +1,12 @@
 import React from "react";
 import {
   Image,
+  Linking,
   ScrollView,
   StatusBar,
   StyleSheet,
   Text,
+  TouchableOpacity,
   useColorScheme,
   View,
 } from "react-native";
@@ -20,7 +22,9 @@ const NewsDetailsScreens = ({ route }) => {
     );
   }
   console.log("Full item object:", item);
-
+  const openUrl = (url) => {
+    Linking.openURL(url);
+  };
   return (
     <ScrollView style={styles.container}>
       <StatusBar
@@ -34,9 +38,23 @@ const NewsDetailsScreens = ({ route }) => {
       <View style={styles.content}>
         <Text style={styles.title}>{item.title}</Text>
         <Text style={styles.author}>{item.author || "Unknown Author"}</Text>
+        {/* <Text style={{ color: "red" }}>
+          {item.source.id || "Unknown Author"}
+        </Text> */}
+
+        <Text style={{ color: "red" }}>{item.title || "Unknown Author"}</Text>
+        <View style={styles.readMoreButton}>
+          <TouchableOpacity onPress={() => openUrl(item.url)}>
+            <Text style={styles.readMoreButtonText}>{item.url}</Text>
+          </TouchableOpacity>
+        </View>
+
+        <Image source={{ uri: item.url }} style={styles.image} />
 
         {item.content && <Text style={styles.content}>{item.content}</Text>}
-        {/* {console.log("ddsdsds", item.content)} */}
+        <Text style={styles.publishedDate}>
+          Published at: {new Date(item.publishedAt).toLocaleString()}
+        </Text>
       </View>
     </ScrollView>
   );
@@ -62,7 +80,7 @@ const styles = StyleSheet.create({
     resizeMode: "cover",
   },
   content: {
-    padding: 15,
+    padding: 5,
   },
   title: {
     fontSize: 22,
@@ -79,9 +97,23 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     lineHeight: 24,
   },
-  content: {
+  content2: {
     fontSize: 16,
     lineHeight: 22,
+  },
+  publishedDate: {
+    fontSize: 14,
+    color: "gray",
+    marginTop: 10,
+  },
+  readMoreButton: {
+    alignSelf: "flex-start",
+    marginTop: 5,
+  },
+  readMoreButtonText: {
+    color: "#007AFF",
+    fontSize: 12,
+    textDecorationLine: "underline",
   },
 });
 

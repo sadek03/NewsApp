@@ -33,8 +33,8 @@ const NewsSection = ({ item }) => {
   };
 
   const [bookMarkStatus, setBookMarkStatus] = useState([]);
+  const [articles, setArticles] = useState([]);
 
-  // Load saved bookmarks when the component mounts
   useEffect(() => {
     const loadSavedBookmarks = async () => {
       try {
@@ -44,17 +44,23 @@ const NewsSection = ({ item }) => {
           : [];
 
         // Initialize bookmark status for each item
-        const initialBookmarkStatus = item.articles.map((article) =>
-          savedArticles.some((savedArticle) => savedArticle.id === article.id)
-        );
+        const initialBookmarkStatus = Array.isArray(item)
+          ? item.map((article) =>
+              savedArticles.some(
+                (savedArticle) => savedArticle.id === article.id
+              )
+            )
+          : [false];
+
         setBookMarkStatus(initialBookmarkStatus);
+        setArticles(Array.isArray(item) ? item : []);
       } catch (error) {
         console.error("Error loading saved bookmarks:", error);
       }
     };
 
     loadSavedBookmarks();
-  }, [item]);
+  }, []);
 
   // Toggle bookmark and update AsyncStorage
   const toogleBookMarkAndSave = async (article, index) => {
@@ -90,7 +96,7 @@ const NewsSection = ({ item }) => {
 
       console.log("Bookmark status updated successfully:", savedArticles);
     } catch (error) {
-      console.error("Error toggling bookmark:", error);
+      console.log("Error toggling bookmark:", error);
     }
   };
 

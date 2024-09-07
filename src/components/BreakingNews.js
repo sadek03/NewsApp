@@ -56,9 +56,9 @@ const BreakingNews = ({ item }) => {
   useEffect(() => {
     const timer = setInterval(() => {
       if (activeSlide === images.length - 1) {
-        flatListRef.current.scrollToIndex({ index: 0 });
+        flatListRef.current?.scrollToIndex?.({ index: 0 });
       } else {
-        flatListRef.current.scrollToIndex({ index: activeSlide + 1 });
+        flatListRef.current?.scrollToIndex?.({ index: activeSlide + 1 });
       }
     }, 3000);
 
@@ -74,31 +74,28 @@ const BreakingNews = ({ item }) => {
       <FlatList
         ref={flatListRef}
         data={images}
-        renderItem={({ item: newsItem }) => (
-          <TouchableWithoutFeedback onPress={() => handleClick(newsItem)}>
+        renderItem={({ item }) => (
+          <TouchableWithoutFeedback onPress={() => handleClick(item)}>
             <View style={styles.productImageWrapper}>
-              <Image
-                source={{ uri: newsItem.url }}
-                style={styles.productImage}
-              />
+              <Image source={{ uri: item.url }} style={styles.productImage} />
               <View style={styles.textOverlay}>
                 <Text style={styles.titleText}>
-                  {newsItem.title.length > 60
-                    ? newsItem.title.slice(0, 60) + "..."
-                    : newsItem.title}
+                  {item.title.length > 60
+                    ? item.title.slice(0, 60) + "..."
+                    : item.title}
                 </Text>
               </View>
               <View style={styles.authorOverlay}>
                 <Text style={styles.authorText}>
-                  {newsItem.author.length > 20
-                    ? newsItem.author.slice(0, 20) + "..."
-                    : newsItem.author}
+                  {item.author.length > 20
+                    ? item.author.slice(0, 20) + "..."
+                    : item.author}
                 </Text>
               </View>
             </View>
           </TouchableWithoutFeedback>
         )}
-        keyExtractor={(_, index) => index.toString()}
+        keyExtractor={(item, index) => index.toString()}
         horizontal
         onViewableItemsChanged={onViewRef.current}
         viewabilityConfig={{ itemVisiblePercentThreshold: 50 }}

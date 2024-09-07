@@ -28,6 +28,7 @@ const HomeScreen = () => {
   const fetchBreakingNews = async () => {
     const response = await fetch(
       `${API_BASE_URL}/top-headlines?country=us&apiKey=${API_KEY}`
+      // `https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=b608e5ceb1f04d0aa0c762c2ecd5d22d`
     );
     if (!response.ok) {
       throw new Error("Network response was not ok");
@@ -37,7 +38,8 @@ const HomeScreen = () => {
 
   const fetchRecommendedNews = async () => {
     const response = await fetch(
-      `${API_BASE_URL}/top-headlines?country=us&category=business&apiKey=${API_KEY}`
+      // `${API_BASE_URL}/top-headlines?country=us&category=business&apiKey=${API_KEY}`
+      `https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=b608e5ceb1f04d0aa0c762c2ecd5d22d`
     );
     if (!response.ok) {
       throw new Error("Network response was not ok");
